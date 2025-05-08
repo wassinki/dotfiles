@@ -1,4 +1,6 @@
-BREW_PREFIX=$(brew --prefix)
+if is-executable brew; then
+  BREW_PREFIX=$(brew --prefix)
+fi
 
 # Bash
 
@@ -30,7 +32,8 @@ fi
 # Git
 
 if is-executable git; then
-  . "$BREW_PREFIX/etc/bash_completion.d/git-completion.bash"
+  [ -e "$BREW_PREFIX/etc/bash_completion.d/git-completion.bash" ] &&  . "$BREW_PREFIX/etc/bash_completion.d/git-completion.bash" 
+  [ -e ~/.git-completion.bash ] && . ~/.git-completion.bash
 fi
 
 # pnpm

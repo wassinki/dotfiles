@@ -16,20 +16,18 @@ all: $(OS)
 
 macos: sudo core-macos packages link duti bun
 
-linux: core-linux link bun
+linux: core-linux link bun linux-packages
 
 core-macos: brew bash git npm
 
 core-linux:
-	apt-get update
-	apt-get upgrade -y
-	apt-get dist-upgrade -f
+	sudo apt-get update
 
 stow-macos: brew
 	is-executable stow || brew install stow
 
 stow-linux: core-linux
-	is-executable stow || apt-get -y install stow
+	is-executable stow || sudo apt-get -y install stow
 
 sudo:
 ifndef GITHUB_ACTION
@@ -53,9 +51,11 @@ unlink: stow-$(OS)
 	stow --delete -t "$(XDG_CONFIG_HOME)" config
 	for FILE in $$(\ls -A runcom); do if [ -f $(HOME)/$$FILE.bak ]; then \
 		mv -v $(HOME)/$$FILE.bak $(HOME)/$${FILE%%.bak}; fi; done
-
 brew:
 	is-executable brew || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+	
+linux-packages:
+	bash $(DOTFILES_DIR)/install/linux-packages
 
 bash: brew
 ifdef GITHUB_ACTION

@@ -21,9 +21,10 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 
 # Source the dotfiles (order matters)
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,function_*,n,path,env,exports,alias,fzf,grep,prompt,completion,fix,zoxide}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,function_*,n,path,exports,alias,grep,prompt,completion,java.env}; do
   . "$DOTFILE"
 done
+[ -f "$DOTFILES_DIR"/system/.env ] && . "$DOTFILES_DIR"/system/.env
 
 if is-macos; then
   for DOTFILE in "$DOTFILES_DIR"/system/.{env,alias,function}.macos; do

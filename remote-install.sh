@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-SOURCE="https://github.com/webpro/dotfiles"
-TARBALL="$SOURCE/tarball/main"
+BRANCH=wassinki
+SOURCE="https://github.com/wassinki/dotfiles"
+TARBALL="$SOURCE/tarball/$BRANCH"
 TARGET="$HOME/.dotfiles"
 TAR_CMD="tar -xzv -C "$TARGET" --strip-components=1 --exclude='{.gitignore}'"
 
@@ -10,7 +11,7 @@ is_executable() {
 }
 
 if is_executable "git"; then
-  CMD="git clone $SOURCE $TARGET"
+  CMD="git clone $SOURCE -b $BRANCH $TARGET"
 elif is_executable "curl"; then
   CMD="curl -#L $TARBALL | $TAR_CMD"
 elif is_executable "wget"; then
