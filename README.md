@@ -33,6 +33,11 @@ sudo softwareupdate -i -a
 xcode-select --install
 ```
 
+On a sparkling fresh installation of Ubuntu:
+```bash
+sudo apt-get update && sudo apt-get install curl make
+```
+
 The Xcode Command Line Tools includes `git` and `make` (not available on stock macOS). Now there are two options:
 
 1. Install this repo with `curl` available:
