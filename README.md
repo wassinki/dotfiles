@@ -51,7 +51,7 @@ This will clone or download this repo to `~/.dotfiles` (depending on the availab
 1. Alternatively, clone manually into the desired location:
 
 ```bash
-git clone https://github.com/wassinki/dotfiles.git -b wassinki ~/.dotfiles
+git clone git@ssh.dev.azure.com:v3/nedap-livestock/velos/dotfiles -b wassinki ~/.dotfiles
 ```
 
 2. Use the [Makefile](./Makefile) to install the [packages listed above](#packages-overview), and symlink
@@ -73,19 +73,6 @@ Running `make` with the Makefile is idempotent. The installation process in the 
 git config --global user.name "your name"
 git config --global user.email "your@email.com"
 git config --global github.user "your-github-username"
-```
-
-2. Set macOS [Dock items](./macos/dock.sh) and [system defaults](./macos/defaults.sh):
-
-```sh
-dot dock
-dot macos
-```
-
-3. Populate this file with tokens (example: `export GITHUB_TOKEN=abc`):
-
-```sh
-touch ~/.dotfiles/system/.exports
 ```
 
 ## The `dot` command
