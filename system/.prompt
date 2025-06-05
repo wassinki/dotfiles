@@ -1,5 +1,7 @@
 ## Prompt
 
+export GIT_PS1_SHOWDIRTYSTATE=1
+
 [ -e "${HOME}/.iterm2_shell_integration.bash" ] && source "${HOME}/.iterm2_shell_integration.bash"
 [ -e "${HOME}/.git-prompt.sh" ] && source "${HOME}/.git-prompt.sh"
 
