@@ -16,27 +16,16 @@ else
 fi
 
 # Make utilities available
-
 PATH="$DOTFILES_DIR/bin:$PATH"
 
 # Source the dotfiles (order matters)
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,function_*,n,path,exports,alias,grep,prompt,completion,java.env}; do
+for DOTFILE in $(find "$DOTFILES_DIR/system" -type f -name '.*' -a ! -name '*.zsh'); do
   . "$DOTFILE"
 done
-[ -f "$DOTFILES_DIR"/system/.env ] && . "$DOTFILES_DIR"/system/.env
-
-if is-macos; then
-  for DOTFILE in "$DOTFILES_DIR"/system/.{env,alias,function}.macos; do
-    . "$DOTFILE"
-  done
-fi
-
-# Set LSCOLORS
-
-eval "$(dircolors -b "$DOTFILES_DIR"/system/.dir_colors)"
-
-# Wrap up
 
 unset CURRENT_SCRIPT SCRIPT_PATH DOTFILE
 export DOTFILES_DIR
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+

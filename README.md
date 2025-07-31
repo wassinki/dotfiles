@@ -51,7 +51,7 @@ This will clone or download this repo to `~/.dotfiles` (depending on the availab
 1. Alternatively, clone manually into the desired location:
 
 ```bash
-git clone git@ssh.dev.azure.com:v3/nedap-livestock/velos/dotfiles -b wassinki ~/.dotfiles
+git clone gitl@ssh.dev.azure.com:v3/nedap-livestock/velos/dotfiles -b wassinki ~/.dotfiles
 ```
 
 2. Use the [Makefile](./Makefile) to install the [packages listed above](#packages-overview), and symlink

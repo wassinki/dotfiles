@@ -20,7 +20,7 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 
 # Source the dotfiles (order matters)
 
-for DOTFILE in $(find "$DOTFILES_DIR/system" -type f -name '.*' -a ! -name '*.zsh'); do
+for DOTFILE in $(find "$DOTFILES_DIR/system" -type f -name '.*' -a ! -name '*.bash'); do
   . "$DOTFILE"
 done
 

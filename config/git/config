@@ -3,6 +3,7 @@
 	email = ingo.wassink@nedap.com
 
 [core]
+  commentChar = @
 	excludesfile = ~/.config/git/ignore
 	editor = vim
 	filemode = false

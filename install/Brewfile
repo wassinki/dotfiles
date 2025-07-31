@@ -23,7 +23,6 @@ brew "zoxide"
 # search/grep/diff
 brew "fd"
 brew "fzf"
-brew "git-delta"
 brew "gnu-sed"
 brew "grep"
 brew "jq"

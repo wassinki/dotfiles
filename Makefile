@@ -14,9 +14,9 @@ export ACCEPT_EULA=Y
 
 all: $(OS)
 
-macos: sudo core-macos packages link duti 
+macos: sudo core-macos packages curl link duti
 
-linux: core-linux link linux-packages
+linux: core-linux link linux-packages curl
 
 core-macos: brew bash git npm
 
@@ -53,9 +53,12 @@ unlink: stow-$(OS)
 		mv -v $(HOME)/$$FILE.bak $(HOME)/$${FILE%%.bak}; fi; done
 brew:
 	is-executable brew || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
-	
+
 linux-packages:
 	bash $(DOTFILES_DIR)/install/linux-packages
+
+curl:
+	bash $(DOTFILES_DIR)/install/curl
 
 bash: brew
 ifdef GITHUB_ACTION
