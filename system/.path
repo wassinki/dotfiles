@@ -29,9 +29,12 @@ append-path "$HOMEBREW_PREFIX/opt/python/libexec/bin"
 append-path "$DOTFILES_DIR/bin"
 
 # Remove duplicates (preserving prepended items)
-# Source: http://unix.stackexchange.com/a/40755
 
-PATH=$(echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
+if [[ -n ${ZSH_VERSION:-} ]]; then
+  typeset -U path PATH
+else
+  PATH=$(echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}')
+fi
 # Wrap up
 
 export PATH

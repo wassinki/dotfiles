@@ -5,14 +5,22 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 [ -e "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
 [ -e "${HOME}/.git-prompt.sh" ] && source "${HOME}/.git-prompt.sh"
 
-# Function to check if we are inside a Git repository
+function refresh_git_context() {
+    GIT_PROMPT="$(__git_ps1)"
+
+    if [[ -n "$GIT_PROMPT" ]]; then
+        GIT_PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+        GIT_PROJECT="${GIT_PROJECT_ROOT:t}"
+    else
+        unset GIT_PROJECT_ROOT GIT_PROJECT
+    fi
+}
+
 function git_prompt_command() {
-    if [[ ! -z "$(__git_ps1)" ]]; then
+    if [[ -n "$GIT_PROMPT" ]]; then
         # Inside a Git repository, hide the path
-        CURRENT_DIRECTORY=$(pwd)
-        RELATIVE_PATH="${CURRENT_DIRECTORY/${HOME}\/}"
-        PROJECT=$(basename $(git rev-parse --show-toplevel))
-        PROMPT="%F{green}${PROJECT} %F{grey}${RELATIVE_PATH} %F{yellow}$(__git_ps1)%f $ "
+        RELATIVE_PATH="${PWD/${HOME}\/}"
+        PROMPT="%F{green}${GIT_PROJECT} %F{grey}${RELATIVE_PATH} %F{yellow}${GIT_PROMPT}%f $ "
     else
         # Not inside a Git repository, show the path
         PROMPT='%n@%m %F{green}%~%f $ '
@@ -24,9 +32,8 @@ PROMPT_COMMAND=git_prompt_command
 function iterm_title() {
     TITLE="${PWD##*/}"
 
-    if [[ ! -z "$(__git_ps1)" ]]; then
-        PROJECT=$(basename $(git rev-parse --show-toplevel))
-        TITLE="${TITLE} - ${PROJECT} $(__git_ps1)"
+    if [[ -n "$GIT_PROMPT" ]]; then
+        TITLE="${TITLE} - ${GIT_PROJECT} ${GIT_PROMPT}"
     fi
     echo -ne "\033];${TITLE}\007"
 
@@ -45,5 +52,5 @@ if [ $ITERM_SESSION_ID ]; then
 fi
 
 function precmd() {
-   iterm_title; git_prompt_command
+   refresh_git_context; iterm_title; git_prompt_command
 }
